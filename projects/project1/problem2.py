@@ -37,4 +37,4 @@ def Hamiltonian_Problem(city_distance, fuel, mpg):
     '''
 
 inputs()
-Hamiltonian_Problem(inputs.city_distance, inputs.fuel, inputs.mpg)
+#Hamiltonian_Problem(inputs.city_distance, inputs.fuel, inputs.mpg)
