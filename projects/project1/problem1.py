@@ -27,9 +27,11 @@ def couples(arr: List[int]) -> int:
     return swaps
 
 
-test_cases = [[[0, 2, 1, 3], 1], [[3, 2, 0, 1], 0], [[1, 0, 3, 2], 0]]
+def main():
+    testCases = [[[0, 2, 1, 3], 1], [[3, 2, 0, 1], 0], [[1, 0, 3, 2], 0]]
+    for case in testCases:
+        result = couples(case[0])
+        print("test case passed:", result == case[1])
 
-for i, test_case in enumerate(test_cases):
-    result = couples(test_case[0])
-    assert result == test_case[1]
-print("Test cases succesfully ran!")
+
+main()
