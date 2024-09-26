@@ -29,7 +29,7 @@ def greedy_approach(city_distances, fuel, mpg):
     # This will usually never be the case, since it is confirmed within the problem that
     # there will be guaranteed exactly one city that is valid to start at.
     else:
-        return False
+        return -1
         
 def Hamilton_Problem():
     
