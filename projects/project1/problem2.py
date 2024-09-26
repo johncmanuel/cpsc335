@@ -39,6 +39,6 @@ def Hamilton_Problem():
     mpg = 10
     
     # This will print out the valid city's index within the city_distances array
-    print(greedy_approach(city_distances, fuel, mpg))
+    print("valid starting city index:", greedy_approach(city_distances, fuel, mpg))
     
 Hamilton_Problem()
