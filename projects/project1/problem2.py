@@ -1,40 +1,44 @@
-def inputs():
-    # We would need to know how far the cities are from each other.
-    # Let us create an empty list to append the wanted values of distance.
-    city_distance = []
+def greedy_approach(city_distances, fuel, mpg):
     
-    # Ask the user to input the values of the distances between each city and create/append into 'city_distance'
-    distance = input("Enter a list of numbers seperated by commas: ")
-    city_distance = [x.strip() for x in distance.split(",")]
+    # Starting values for iterating through the arrays.
+    starting_city = 0
+    total_gas = 0
+
+    # Walk through each value in array to determine which city is best to start at.
+    for i in range(len(city_distances)):
         
-    # We would need to know at which cities, how much gallon(s) of gas we will get for the travel to the next city.
-    # Let us create an empty list to append the wanted values of fuel for each stop.
-    fuel = []
-    
-    # Ask the user to input the values of gallon(s) for each stop in a city is.
-    gallon = input(f"Enter a list of {len(city_distance)} elements respective to how much gallon(s) is taken for each stop, seperated by commas: ")
-    fuel = [x.strip() for x in gallon.split(",")]       # I still need to find a way to implement a Error exempt.
-    
-    # We would need an input of how efficient the car will be traveling throughout the cities.
-    mpg = int(input("How fast will the car be going? (mpg): "))
-    
-    # Return the values to be used for the Hamiltonian Problem.
-    print(city_distance, fuel, mpg)         # i have this to just check if my values are coming back correctly.
-    return city_distance, fuel, mpg
-
-
-# I might try to recall this problem onto the main.py? maybe idk...
-def Hamiltonian_Problem(city_distance, fuel, mpg):
-    print(city_distance, fuel, mpg)
-    return city_distance, fuel, mpg
-
-    '''
-    for i in range(city_distance):
+        # Merge the fuel array with mpg to determine how far a car is able to go after each stop
+        # We are left with two arrays which can be compared with each other
+        # the variable total_gas is created to compare the two arrays and check to see if
+        # gas_efficiency > city_distances at ALL times.
+        gas_efficiency = fuel[i] * mpg
+        total_gas += gas_efficiency - city_distances[i]
         
-        return
-    
-    return
-    '''
+        # If however gas_efficiency < city_distances, we can assume that the car did NOT make it
+        # Therefore, we iterate to the next city_distances[index] and start over.
+        if total_gas < 0:
+            starting_city = i + 1
+            total_gas = 0
+            
+    # When the whole iteration is able to successfully pass through all elements in array
+    # If our returned total_gas that is used is at least 0, then we can conclude
+    # That the starting_city index is our valid city to start at.
+    if total_gas >= 0:
+        return starting_city
 
-inputs()
-#Hamiltonian_Problem(inputs.city_distance, inputs.fuel, inputs.mpg)
+    # This will usually never be the case, since it is confirmed within the problem that
+    # there will be guaranteed exactly one city that is valid to start at.
+    else:
+        return False
+        
+def Hamilton_Problem():
+    
+    # Using the values given from the problem
+    city_distances = [5, 25, 15, 10, 15]
+    fuel = [1, 2, 1, 0, 3]
+    mpg = 10
+    
+    # This will print out the valid city's index within the city_distances array
+    print(greedy_approach(city_distances, fuel, mpg))
+    
+Hamilton_Problem()
