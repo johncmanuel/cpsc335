@@ -1,3 +1,10 @@
+# John Carlo Manuel, Timothy Tran
+# johncarlomanuel@csu.fullerton.edu, timmyster413@csu.fullerton.edu
+# CPSC 335
+# Instructor Balaji Sai Charan Jalukuru
+# 29 September 2024
+
+
 from typing import List
 
 
