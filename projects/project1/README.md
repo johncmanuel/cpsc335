@@ -1,5 +1,7 @@
 # How to Run
 
+Install Python 3.8 or higher.
+
 Once the terminal is in this directory, run the following commands for each problem:
 
 ```bash
