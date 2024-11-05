@@ -36,7 +36,7 @@ def matching_group_schedules(
 ) -> List[List[str]]:
 
     # Process: merge overlapping intervals, convert timestamps to minutes,
-    # find free time slots using duration and boundaries in period, convert back to timestamps
+    # find free time slots using the merged interval, duration, and boundaries, then convert back to timestamps
 
     free_slots = []
 
@@ -63,27 +63,25 @@ def matching_group_schedules(
         [[convert_ts_to_mins(x), convert_ts_to_mins(y)] for x, y in busy_slots]
     )
 
-    tmp = [[convert_mins_to_ts(x), convert_mins_to_ts(y)] for x, y in busy_slots]
-
-    print(tmp)
-
     # Find free time slots given the duration of the meeting and boundaries
+    # by checking the difference between the current slot's end value
+    # and the next slot's start value
+    for i in range(len(busy_slots[1:])):
+        curr_slot, next_slot = busy_slots[i], busy_slots[i + 1]
+        if next_slot[0] - curr_slot[1] >= durationMins and curr_slot[0] >= latestLogin:
+            free_slots.append([curr_slot[1], next_slot[0]])
 
-    # Iterate starting from latest login to earliest logout.
+    # Check if last slot's end value can work
+    last_val = busy_slots[-1][1]
+    if earliestLogout - last_val >= durationMins:
+        free_slots.append([last_val, earliestLogout])
 
-    # for i in range(latestLogin, earliestLogout, durationMins):
-    #     # Check if slot is in busy slots
-    #     if not any(
-    #         start <= i < end or start < i + durationMins <= end
-    #         for start, end in busy_slots
-    #     ):
-    #         free_slots.append(
-    #             [convert_mins_to_ts(i), convert_mins_to_ts(i + durationMins)]
-    #         )
-    #
+    free_slots = [[convert_mins_to_ts(x), convert_mins_to_ts(y)] for x, y in free_slots]
+
     return free_slots
 
 
+# Example output from problem statement
 person1_Schedule = [["7:00", "8:30"], ["12:00", "13:00"], ["16:00", "18:00"]]
 person1_DailyAct = ["9:00", "19:00"]
 person2_Schedule = [
