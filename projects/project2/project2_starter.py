@@ -68,6 +68,9 @@ def matching_group_schedules(
     print(tmp)
 
     # Find free time slots given the duration of the meeting and boundaries
+
+    # Iterate starting from latest login to earliest logout.
+
     # for i in range(latestLogin, earliestLogout, durationMins):
     #     # Check if slot is in busy slots
     #     if not any(
