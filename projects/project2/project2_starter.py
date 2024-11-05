@@ -38,7 +38,9 @@ def matching_group_schedules(
     # Process: merge overlapping intervals, convert timestamps to minutes,
     # find free time slots using duration and boundaries in period, convert back to timestamps
 
-    # Get latest login and earliest logout from
+    free_slots = []
+
+    # Get latest login and earliest logout. This will be the boundaries we will be using.
     latestLogin, earliestLogout = convert_ts_to_mins(periods[0][0]), convert_ts_to_mins(
         periods[0][1]
     )
@@ -49,7 +51,26 @@ def matching_group_schedules(
     latestLogin, earliestLogout = convert_mins_to_ts(latestLogin), convert_mins_to_ts(
         earliestLogout
     )
-    print(latestLogin, earliestLogout)
+
+    print("Latest Login: ", latestLogin)
+    print("Earliest Logout: ", earliestLogout)
+
+    busy_slots = []
+
+    # Merge overlapping intervals into one interval
+    for schedule in schedules:
+        busy_slots += schedule
+
+    busy_slots = merge_intervals(
+        [[convert_ts_to_mins(x), convert_ts_to_mins(y)] for x, y in busy_slots]
+    )
+
+    print(busy_slots)
+
+    # Find free time slots given the duration of the meeting and boundaries
+    # Start at latestLogin and end at earliestLogout and iterate by durationMins
+
+    return free_slots
 
 
 person1_Schedule = [["7:00", "8:30"], ["12:00", "13:00"], ["16:00", "18:00"]]
@@ -68,4 +89,4 @@ x = matching_group_schedules(
     [person1_DailyAct, person2_DailyAct],
     duration_of_meeting,
 )
-print(x)
+print("Output: ", x)
