@@ -40,6 +40,8 @@ def matching_group_schedules(
 
     free_slots = []
 
+    print("Schedules: ", schedules)
+
     # Get latest login and earliest logout. This will be the boundaries we will be using.
     latestLogin, earliestLogout = convert_ts_to_mins(periods[0][0]), convert_ts_to_mins(
         periods[0][1]
@@ -47,10 +49,6 @@ def matching_group_schedules(
     for login, logout in periods:
         latestLogin = max(latestLogin, convert_ts_to_mins(login))
         earliestLogout = min(earliestLogout, convert_ts_to_mins(logout))
-
-    latestLogin, earliestLogout = convert_mins_to_ts(latestLogin), convert_mins_to_ts(
-        earliestLogout
-    )
 
     print("Latest Login: ", latestLogin)
     print("Earliest Logout: ", earliestLogout)
@@ -65,11 +63,21 @@ def matching_group_schedules(
         [[convert_ts_to_mins(x), convert_ts_to_mins(y)] for x, y in busy_slots]
     )
 
-    print(busy_slots)
+    tmp = [[convert_mins_to_ts(x), convert_mins_to_ts(y)] for x, y in busy_slots]
+
+    print(tmp)
 
     # Find free time slots given the duration of the meeting and boundaries
-    # Start at latestLogin and end at earliestLogout and iterate by durationMins
-
+    # for i in range(latestLogin, earliestLogout, durationMins):
+    #     # Check if slot is in busy slots
+    #     if not any(
+    #         start <= i < end or start < i + durationMins <= end
+    #         for start, end in busy_slots
+    #     ):
+    #         free_slots.append(
+    #             [convert_mins_to_ts(i), convert_mins_to_ts(i + durationMins)]
+    #         )
+    #
     return free_slots
 
 
