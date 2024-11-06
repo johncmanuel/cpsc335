@@ -1,6 +1,5 @@
 from typing import List
 from ast import literal_eval
-from pprint import pprint
 
 
 def merge_intervals(intervals: List[List[int]]) -> List[List[int]]:
@@ -61,7 +60,7 @@ def matching_group_schedules(
         [[convert_ts_to_mins(x), convert_ts_to_mins(y)] for x, y in busy_slots]
     )
 
-    print(busy_slots, duration_mins)
+    print(latest_login, earliest_logout, busy_slots, duration_mins)
 
     # Find free time slots given the duration of the meeting and boundaries
     # by checking the difference between the current slot's end value
