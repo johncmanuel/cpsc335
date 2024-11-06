@@ -60,8 +60,6 @@ def matching_group_schedules(
         [[convert_ts_to_mins(x), convert_ts_to_mins(y)] for x, y in busy_slots]
     )
 
-    # print(latest_login, earliest_logout, busy_slots, duration_mins)
-
     # Find free time slots given the duration of the meeting and boundaries
     # by checking the difference between the current slot's end value
     # and the next slot's start value
