@@ -41,7 +41,6 @@ def matching_group_schedules(
 
     free_slots = []
 
-    print(periods, periods[0])
     # Get latest login and earliest logout. This will be the boundaries we will be using.
     latest_login, earliest_logout = convert_ts_to_mins(
         periods[0][0]
